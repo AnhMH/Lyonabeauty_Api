@@ -327,10 +327,6 @@ return array(
         'unauthorize_url' => array(
             'versions/check',
             'admins/login',
-            'cates/all',
-            'posts/all',
-            'posts/detail',
-            'posts/gethomedata',
             'settings/general'
         ),
         'admin_authorize_url' => array(),
@@ -339,7 +335,7 @@ return array(
         ),
 
         'api_check_security' => true,
-        'api_secret_key' => 'haoapi',
+        'api_secret_key' => 'lyonabeauty',
         'api_request_minute' => 10,// Minute
         'register_token_expire' => time() + 60 * 60, // 1 hour
         'api_token_expire' => time() + 30 * 24 * 60 * 60, // 30 days
