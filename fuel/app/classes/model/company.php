@@ -17,17 +17,21 @@ class Model_Company extends Model_Abstract {
         'id',
         'name',
         'logo',
-        'address',
-        'tel',
-        'seo_image',
         'seo_description',
+        'seo_image',
         'seo_keyword',
-        'facebook',
-        'twitter',
-        'instagram',
-        'google_plus',
-        'youtube',
         'email',
+        'tel',
+        'address',
+        'facebook',
+        'youtube',
+        'instagram',
+        'zalo',
+        'google_plus',
+        'twitter',
+        'script_header',
+        'script_body',
+        'script_footer',
         'created',
         'updated'
     );
@@ -113,6 +117,18 @@ class Model_Company extends Model_Abstract {
         }
         if (!empty($param['email'])) {
             $self->set('email', $param['email']);
+        }
+        if (!empty($param['zalo'])) {
+            $self->set('zalo', $param['zalo']);
+        }
+        if (!empty($param['script_header'])) {
+            $self->set('script_header', $param['script_header']);
+        }
+        if (!empty($param['script_body'])) {
+            $self->set('script_body', $param['script_body']);
+        }
+        if (!empty($param['script_footer'])) {
+            $self->set('script_footer', $param['script_footer']);
         }
         
         // Save data
