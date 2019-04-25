@@ -17,8 +17,10 @@ class Model_Cate extends Model_Abstract {
         'id',
         'name',
         'url',
-        'root_id',
-        'order',
+        'parent_id',
+        'position',
+        'is_homepage',
+        'type',
         'created',
         'updated',
         'disable'
@@ -49,6 +51,8 @@ class Model_Cate extends Model_Abstract {
     {
         // Init
         $self = array();
+        $isNew = false;
+        $time = time();
         
         // Check if exist User
         if (!empty($param['id'])) {
@@ -59,6 +63,7 @@ class Model_Cate extends Model_Abstract {
             }
         } else {
             $self = new self;
+            $isNew = true;
         }
         
         // Set data
@@ -66,11 +71,21 @@ class Model_Cate extends Model_Abstract {
             $self->set('name', $param['name']);
             $self->set('url', \Lib\Str::convertURL($param['name']));
         }
-        if (!empty($param['root_id'])) {
-            $self->set('root_id', $param['root_id']);
+        if (!empty($param['parent_id'])) {
+            $self->set('parent_id', $param['parent_id']);
         }
-        if (!empty($param['order'])) {
-            $self->set('order', $param['order']);
+        if (!empty($param['position'])) {
+            $self->set('position', $param['position']);
+        }
+        if (!empty($param['is_homepage'])) {
+            $self->set('is_homepage', $param['is_homepage']);
+        }
+        if (!empty($param['type'])) {
+            $self->set('type', $param['type']);
+        }
+        $self->set('updated', $time);
+        if ($isNew) {
+            $self->set('created', $time);
         }
         
         // Save data
@@ -106,6 +121,9 @@ class Model_Cate extends Model_Abstract {
         // Filter
         if (!empty($param['name'])) {
             $query->where(self::$_table_name.'.name', 'LIKE', "%{$param['name']}%");
+        }
+        if (!empty($param['type'])) {
+            $query->where(self::$_table_name.'.type', $param['type']);
         }
         
         if (isset($param['disable']) && $param['disable'] != '') {
@@ -222,6 +240,12 @@ class Model_Cate extends Model_Abstract {
         if (!empty($param['email'])) {
             $query->where(self::$_table_name.'.email', 'LIKE', "%{$param['email']}%");
         }
+        if (!empty($param['not_id'])) {
+            $query->where(self::$_table_name.'.id', '!=', $param['not_id']);
+        }
+        if (!empty($param['type'])) {
+            $query->where(self::$_table_name.'.type', $param['type']);
+        }
         
         // Pagination
         if (!empty($param['page']) && $param['limit']) {
@@ -242,7 +266,7 @@ class Model_Cate extends Model_Abstract {
             }
             $query->order_by($sortExplode[0], $sortExplode[1]);
         } else {
-            $query->order_by(self::$_table_name . '.order', 'ASC');
+            $query->order_by(self::$_table_name . '.position', 'ASC');
         }
         
         // Get data
