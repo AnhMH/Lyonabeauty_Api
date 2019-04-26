@@ -18,14 +18,11 @@ class Model_Post extends Model_Abstract {
         'cate_id',
         'name',
         'url',
-        'description',
-        'keyword',
-        'content',
         'image',
-        'is_default',
-        'is_home_slide',
-        'is_hot',
-        'type',
+        'description',
+        'detail',
+        'seo_keyword',
+        'seo_description',
         'created',
         'updated',
         'disable'
@@ -56,6 +53,8 @@ class Model_Post extends Model_Abstract {
     {
         // Init
         $self = array();
+        $isNew = false;
+        $time = time();
         
         // Check if exist User
         if (!empty($param['id'])) {
@@ -66,6 +65,7 @@ class Model_Post extends Model_Abstract {
             }
         } else {
             $self = new self;
+            $isNew = true;
         }
         
         // Upload image
@@ -89,17 +89,21 @@ class Model_Post extends Model_Abstract {
         if (!empty($param['description'])) {
             $self->set('description', $param['description']);
         }
-        if (!empty($param['content'])) {
-            $self->set('content', $param['content']);
+        if (!empty($param['detail'])) {
+            $self->set('detail', $param['detail']);
         }
         if (!empty($param['image'])) {
             $self->set('image', $param['image']);
         }
-        if (!empty($param['keyword'])) {
-            $self->set('keyword', $param['keyword']);
+        if (!empty($param['seo_keyword'])) {
+            $self->set('seo_keyword', $param['seo_keyword']);
         }
-        if (isset($param['type'])) {
-            $self->set('type', $param['type']);
+        if (!empty($param['seo_description'])) {
+            $self->set('seo_description', $param['seo_description']);
+        }
+        $self->set('updated', $time);
+        if ($isNew) {
+            $self->set('created', $time);
         }
         
         // Save data
