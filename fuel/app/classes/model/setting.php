@@ -61,4 +61,23 @@ class Model_Setting extends Model_Abstract {
         // Return
         return $result;
     }
+    
+    /**
+     * Get homedata
+     *
+     * @author AnhMH
+     * @param array $param Input data
+     * @return int|bool User ID or false if error
+     */
+    public static function get_homedata($param)
+    {
+        // Init
+        $result = array();
+        
+        // Get company info
+        $result['sliders'] = Model_Banner::get_all(array());
+                
+        // Return
+        return $result;
+    }
 }

@@ -327,7 +327,8 @@ return array(
         'unauthorize_url' => array(
             'versions/check',
             'admins/login',
-            'settings/general'
+            'settings/general',
+            'settings/gethomedata',
         ),
         'admin_authorize_url' => array(),
         'unauthorize_basic_token_url' => array(

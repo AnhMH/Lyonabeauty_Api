@@ -17,4 +17,11 @@ class Controller_Settings extends \Controller_App {
     public function action_general() {
         return \Bus\Settings_General::getInstance()->execute();
     }
+    
+    /**
+     * Get home data
+     */
+    public function action_gethomedata() {
+        return \Bus\Settings_Gethomedata::getInstance()->execute();
+    }
 }
