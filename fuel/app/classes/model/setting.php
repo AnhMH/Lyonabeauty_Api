@@ -91,6 +91,34 @@ class Model_Setting extends Model_Abstract {
             'page' => 1,
             'limit' => 12
         ));
+        // Get posts data
+        $result['cate_products'] = DB::select(
+                'products.*',
+                array('cates.name', 'cate_name'),
+                array('cates.url', 'cate_url')
+            )
+            ->from(DB::expr("
+                (
+                    SELECT
+			products.*,
+			@rn :=
+                            IF (@prev = cate_id, @rn + 1, 1) AS rn,
+                        @prev := cate_id
+                    FROM
+                        products
+                    JOIN (SELECT @prev := NULL, @rn := 0) AS vars
+                    WHERE
+                        disable = 0
+                    ORDER BY
+                        cate_id
+                ) AS products
+            "))
+            ->join('cates', 'LEFT')
+            ->on('cates.id', '=', 'products.cate_id')
+            ->where(DB::expr("rn <= 10"))
+            ->execute()
+            ->as_array()
+        ;
         
         // Get news
         $result['posts'] = Model_Post::get_all(array(
