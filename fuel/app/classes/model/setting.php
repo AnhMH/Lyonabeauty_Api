@@ -57,6 +57,14 @@ class Model_Setting extends Model_Abstract {
         
         // Get company info
         $result['company'] = Model_Company::find('first');
+        
+        // Get cates
+        $result['product_cates'] = Model_Cate::get_all(array(
+            'type' => 1
+        ));
+        $result['blog_cates'] = Model_Cate::get_all(array(
+            'type' => 2
+        ));
                 
         // Return
         return $result;
