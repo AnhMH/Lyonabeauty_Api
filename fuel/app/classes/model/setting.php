@@ -84,6 +84,19 @@ class Model_Setting extends Model_Abstract {
         
         // Get company info
         $result['sliders'] = Model_Banner::get_all(array());
+        
+        // Get hot product
+        $result['hot_products'] = Model_Product::get_all(array(
+            'is_hot' => 1,
+            'page' => 1,
+            'limit' => 12
+        ));
+        
+        // Get news
+        $result['posts'] = Model_Post::get_all(array(
+            'page' => 1,
+            'limit' => 12
+        ));
                 
         // Return
         return $result;

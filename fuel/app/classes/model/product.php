@@ -18,6 +18,7 @@ class Model_Product extends Model_Abstract {
         'name',
         'url',
         'price',
+        'discount_price',
         'image',
         'thumb_image',
         'cate_id',
@@ -29,7 +30,8 @@ class Model_Product extends Model_Abstract {
         'seo_image',
         'created',
         'updated',
-        'disable'
+        'disable',
+        'is_hot'
     );
 
     protected static $_observers = array(
@@ -110,6 +112,12 @@ class Model_Product extends Model_Abstract {
         }
         if (!empty($param['seo_description'])) {
             $self->set('seo_description', $param['seo_description']);
+        }
+        if (isset($param['discount_price'])) {
+            $self->set('discount_price', $param['discount_price']);
+        }
+        if (isset($param['is_hot'])) {
+            $self->set('is_hot', $param['is_hot']);
         }
         $self->set('updated', $time);
         if ($isNew) {
