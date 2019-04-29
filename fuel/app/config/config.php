@@ -329,6 +329,8 @@ return array(
             'admins/login',
             'settings/general',
             'settings/gethomedata',
+            'products/all',
+            'products/list'
         ),
         'admin_authorize_url' => array(),
         'unauthorize_basic_token_url' => array(

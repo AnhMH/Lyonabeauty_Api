@@ -161,6 +161,12 @@ class Model_Product extends Model_Abstract {
         if (!empty($param['name'])) {
             $query->where(self::$_table_name.'.name', 'LIKE', "%{$param['name']}%");
         }
+        if (!empty($param['cate_id'])) {
+            if (!is_array($param['cate_id'])) {
+                $param['cate_id'] = explode(',', $param['cate_id']);
+            }
+            $query->where(self::$_table_name.'.cate_id', 'IN', $param['cate_id']);
+        }
         
         if (isset($param['disable']) && $param['disable'] != '') {
             $disable = !empty($param['disable']) ? 1 : 0;
