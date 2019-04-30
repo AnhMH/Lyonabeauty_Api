@@ -229,20 +229,10 @@ class Model_Post extends Model_Abstract {
             return false;
         }
         
-        if (!empty($param['get_relations'])) {
-            $data['relations'] = DB::select(
-                    self::$_table_name.'.*',
-                    DB::expr("'{$data['cate_name']}' AS cate_name"),
-                    DB::expr("'{$data['cate_url']}' AS cate_url")
-                )
-                ->from(self::$_table_name)
-                ->where(self::$_table_name.'.disable', 0)
-                ->where(self::$_table_name.'.cate_id', $data['cate_id'])
-                ->order_by(self::$_table_name.'.created', 'DESC')
-                ->limit(6)
-                ->execute()
-                ->as_array()
-            ;
+        if (!empty($param['get_new_posts'])) {
+            $data['new_posts'] = self::get_all(array(
+                'limit' => 4
+            ));
         }
         
         return $data;
