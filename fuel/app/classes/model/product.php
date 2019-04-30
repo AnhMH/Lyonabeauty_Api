@@ -237,6 +237,13 @@ class Model_Product extends Model_Abstract {
             self::errorNotExist('product_id');
             return false;
         }
+        if (!empty($param['get_new_products'])) {
+            $data['new_products'] = self::get_all(array(
+                'sort' => 'created-desc',
+                'page' => 1,
+                'limit' => 10
+            ));
+        }
         
         return $data;
     }

@@ -330,7 +330,8 @@ return array(
             'settings/general',
             'settings/gethomedata',
             'products/all',
-            'products/list'
+            'products/list',
+            'products/detail'
         ),
         'admin_authorize_url' => array(),
         'unauthorize_basic_token_url' => array(
