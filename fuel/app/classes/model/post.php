@@ -132,7 +132,8 @@ class Model_Post extends Model_Abstract {
         // Query
         $query = DB::select(
                 self::$_table_name.'.*',
-                array('cates.name', 'cate_name')
+                array('cates.name', 'cate_name'),
+                array('cates.url', 'cate_url')
             )
             ->from(self::$_table_name)
             ->join('cates', 'left')
@@ -142,6 +143,12 @@ class Model_Post extends Model_Abstract {
         // Filter
         if (!empty($param['name'])) {
             $query->where(self::$_table_name.'.name', 'LIKE', "%{$param['name']}%");
+        }
+        if (!empty($param['cate_id'])) {
+            if (!is_array($param['cate_id'])) {
+                $param['cate_id'] = explode(',', $param['cate_id']);
+            }
+            $query->where(self::$_table_name.'.cate_id', 'IN', $param['cate_id']);
         }
         
         if (isset($param['disable']) && $param['disable'] != '') {
@@ -174,10 +181,18 @@ class Model_Post extends Model_Abstract {
         // Get data
         $data = $query->execute()->as_array();
         $total = !empty($data) ? DB::count_last_query(self::$slave_db) : 0;
+        $newPosts = array();
+        
+        if (!empty($param['get_new_posts'])) {
+            $newPosts = self::get_all(array(
+                'limit' => 4
+            ));
+        }
         
         return array(
             'total' => $total,
-            'data' => $data
+            'data' => $data,
+            'new_posts' => $newPosts
         );
     }
     

@@ -530,7 +530,7 @@ abstract class BusAbstract {
         }
         
         // save log data
-        \LogLib::info('input:', __METHOD__, $data);
+//        \LogLib::info('input:', __METHOD__, $data);
         
         $operateDB = $this->operateDB($data);
         if ($operateDB === false) {
