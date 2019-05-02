@@ -167,6 +167,9 @@ class Model_Product extends Model_Abstract {
             }
             $query->where(self::$_table_name.'.cate_id', 'IN', $param['cate_id']);
         }
+        if (!empty($param['is_sale_off'])) {
+            $query->where(self::$_table_name.'.discount_price', '>', 0);
+        }
         
         if (isset($param['disable']) && $param['disable'] != '') {
             $disable = !empty($param['disable']) ? 1 : 0;
