@@ -333,7 +333,8 @@ return array(
             'products/list',
             'products/detail',
             'posts/list',
-            'posts/detail'
+            'posts/detail',
+            'orders/addupdate'
         ),
         'admin_authorize_url' => array(),
         'unauthorize_basic_token_url' => array(
