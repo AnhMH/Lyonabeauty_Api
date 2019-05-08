@@ -129,4 +129,29 @@ class Model_Setting extends Model_Abstract {
         // Return
         return $result;
     }
+    
+    /**
+     * Get general
+     *
+     * @author AnhMH
+     * @param array $param Input data
+     * @return int|bool User ID or false if error
+     */
+    public static function get_admin_general($param)
+    {
+        // Init
+        $result = array();
+        
+        $posts = DB::select('*')->from('posts')->where('disable', 0)->execute();
+        $result['post_count'] = count($posts);
+        
+        $products = DB::select('*')->from('products')->where('disable', 0)->execute();
+        $result['product_count'] = count($products);
+        
+        $orders = DB::select('*')->from('orders')->where('disable', 0)->execute();
+        $result['order_count'] = count($orders);
+        
+        // Return
+        return $result;
+    }
 }
