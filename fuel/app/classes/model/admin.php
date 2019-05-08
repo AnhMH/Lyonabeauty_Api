@@ -57,6 +57,10 @@ class Model_Admin extends Model_Abstract {
             ->where(self::$_table_name . '.password', '=', $param['password']);
         $data = $query->execute(self::$slave_db)->offsetGet(0);
         
+        if (!empty($data)) {
+            $data['company'] = Model_Company::find('first');
+        }
+        
         return $data;
     }
     

@@ -132,26 +132,14 @@ class Model_Order extends Model_Abstract {
         
         // Query
         $query = DB::select(
-                self::$_table_name.'.*',
-                array('cates.name', 'cate_name')
+                self::$_table_name.'.*'
             )
             ->from(self::$_table_name)
-            ->join('cates', 'left')
-            ->on('cates.id', '=', self::$_table_name.'.cate_id')
         ;
                         
         // Filter
         if (!empty($param['name'])) {
             $query->where(self::$_table_name.'.name', 'LIKE', "%{$param['name']}%");
-        }
-        if (!empty($param['cate_id'])) {
-            if (!is_array($param['cate_id'])) {
-                $param['cate_id'] = explode(',', $param['cate_id']);
-            }
-            $query->where(self::$_table_name.'.cate_id', 'IN', $param['cate_id']);
-        }
-        if (!empty($param['is_sale_off'])) {
-            $query->where(self::$_table_name.'.discount_price', '>', 0);
         }
         
         if (isset($param['disable']) && $param['disable'] != '') {
@@ -201,34 +189,19 @@ class Model_Order extends Model_Abstract {
     public static function get_detail($param)
     {
         $id = !empty($param['id']) ? $param['id'] : '';
-        $url = !empty($param['url']) ? $param['url'] : '';
         
         $query = DB::select(
-                self::$_table_name.'.*',
-                array('cates.name', 'cate_name'),
-                array('cates.url', 'cate_url')
+                self::$_table_name.'.*'
             )
             ->from(self::$_table_name)
-            ->join('cates', 'LEFT')
-            ->on('cates.id', '=', self::$_table_name.'.cate_id')
-            ->where(self::$_table_name.'.disable', 0)
+            ->where(self::$_table_name.'.id', $id)
         ;
-        if (!empty($url)) {
-            $query->where(self::$_table_name.'.url', $url);
-        } else {
-            $query->where(self::$_table_name.'.id', $id);
-        }
+        
         $data = $query->execute()->offsetGet(0);
+        
         if (empty($data)) {
-            self::errorNotExist('product_id');
+            self::errorNotExist('order_id');
             return false;
-        }
-        if (!empty($param['get_new_products'])) {
-            $data['new_products'] = self::get_all(array(
-                'sort' => 'created-desc',
-                'page' => 1,
-                'limit' => 10
-            ));
         }
         
         return $data;
