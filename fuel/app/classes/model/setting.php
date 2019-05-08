@@ -151,6 +151,9 @@ class Model_Setting extends Model_Abstract {
         $orders = DB::select('*')->from('orders')->where('disable', 0)->execute();
         $result['order_count'] = count($orders);
         
+        $contacts = DB::select('*')->from('contacts')->execute();
+        $result['contact_count'] = count($contacts);
+        
         // Return
         return $result;
     }
