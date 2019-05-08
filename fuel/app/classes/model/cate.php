@@ -246,6 +246,16 @@ class Model_Cate extends Model_Abstract {
         if (!empty($param['type'])) {
             $query->where(self::$_table_name.'.type', $param['type']);
         }
+        if (isset($param['parent_id'])) {
+            if (empty($param['parent_id'])) {
+                $query->where_open();
+                $query->where(self::$_table_name.'.parent_id', 'IS', null);
+                $query->or_where(self::$_table_name.'.parent_id', 0);
+                $query->where_close();
+            } else {
+                $query->where(self::$_table_name.'.parent_id', $param['parent_id']);
+            }
+        }
         
         // Pagination
         if (!empty($param['page']) && $param['limit']) {
