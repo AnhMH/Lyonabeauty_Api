@@ -125,6 +125,16 @@ class Model_Cate extends Model_Abstract {
         if (!empty($param['type'])) {
             $query->where(self::$_table_name.'.type', $param['type']);
         }
+        if (isset($param['parent_id']) && $param['parent_id'] != '') {
+            if (empty($param['parent_id'])) {
+                $query->where_open();
+                $query->where(self::$_table_name.'.parent_id', 'IS', null);
+                $query->or_where(self::$_table_name.'.parent_id', 0);
+                $query->where_close();
+            } else {
+                $query->where(self::$_table_name.'.parent_id', $param['parent_id']);
+            }
+        }
         
         if (isset($param['disable']) && $param['disable'] != '') {
             $disable = !empty($param['disable']) ? 1 : 0;
@@ -184,6 +194,25 @@ class Model_Cate extends Model_Abstract {
     }
     
     /**
+     * Delete
+     *
+     * @author AnhMH
+     * @param array $param Input data
+     * @return Int|bool
+     */
+    public static function del($param)
+    {
+        $delete = self::deleteRow(self::$_table_name, array(
+            'id' => $param['id']
+        ));
+        if ($delete) {
+            return $param['id'];
+        } else {
+            return 0;
+        }
+    }
+    
+    /**
      * Enable/Disable
      *
      * @author AnhMH
@@ -198,11 +227,7 @@ class Model_Cate extends Model_Abstract {
             $ids = explode(',', $ids);
         }
         foreach ($ids as $id) {
-            $self = self::find($id);
-            if (!empty($self)) {
-                $self->set('disable', $disable);
-                $self->save();
-            }
+            $self = self::del(array('id' => $id));
         }
         return true;
     }
@@ -276,6 +301,7 @@ class Model_Cate extends Model_Abstract {
             }
             $query->order_by($sortExplode[0], $sortExplode[1]);
         } else {
+            $query->order_by(self::$_table_name . '.parent_id', 'ASC');
             $query->order_by(self::$_table_name . '.position', 'ASC');
         }
         
