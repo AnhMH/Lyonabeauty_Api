@@ -201,7 +201,7 @@ class Str {
      */
     public static function convertURL($str)
     {
-        $str = preg_replace("/(\,|-|\.)/", '', $str);
+        $str = preg_replace("/(\,|-|\.|\'|\+)/", '', $str);
         $str = preg_replace("/(à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ)/", 'a', $str);
         $str = preg_replace("/(è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ)/", 'e', $str);
         $str = preg_replace("/(ì|í|ị|ỉ|ĩ)/", 'i', $str);
@@ -216,7 +216,7 @@ class Str {
         $str = preg_replace("/(Ù|Ú|Ụ|Ủ|Ũ|Ư|Ừ|Ứ|Ự|Ử|Ữ)/", 'U', $str);
         $str = preg_replace("/(Ỳ|Ý|Ỵ|Ỷ|Ỹ)/", 'Y', $str);
         $str = preg_replace("/(Đ)/", 'D', $str);
-        $str = preg_replace('/\s+/', ' ', $str);
+        $str = preg_replace('/\s+/', '-', $str);
         $str = str_replace("/", "-", $str);
         $str = str_replace(" ", "-", $str);
         $str = str_replace("?", "", $str);
