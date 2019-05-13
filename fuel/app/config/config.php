@@ -314,7 +314,8 @@ return array(
         'always_load' => array(
             'packages' => array(
                 'orm',
-                'loglib'
+                'loglib',
+                'email'
             ),
         ),
         'log_threshold' => Fuel::L_DEBUG,
@@ -354,7 +355,7 @@ return array(
         ),
         'page_size' => 10,
         'system_email' => array(
-            'noreply' => '',
+            'noreply' => 'admin@gmail.com',
             'support' => '',
             'bcc' => '',
         ),
