@@ -355,7 +355,7 @@ return array(
         ),
         'page_size' => 10,
         'system_email' => array(
-            'noreply' => 'admin@gmail.com',
+            'noreply' => 'admin@lyonabeauty.com',
             'support' => '',
             'bcc' => '',
         ),

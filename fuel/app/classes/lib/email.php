@@ -16,7 +16,7 @@ use Fuel\Core\Config;
 
 class Email {
     
-    public static $sender = 'Quick No-reply';
+    public static $sender = 'LyonaBeauty';
 
     public static function beforeSend() {
         $send = Config::get('send_email', true);
@@ -111,6 +111,46 @@ class Email {
     	$email->from(Config::get('system_email.noreply'), self::$sender);
     	$email->subject($subject);
         $param['url']= $baseUrl . "users/active/{$param['token']}";
+    	$body = \View::forge($view, $param);
+    	$email->html_body($body);
+    	$email->to(self::to($to));
+        $ok = 0;
+    	try {
+            \LogLib::info("Sent email to {$to}", __METHOD__, $param);
+            if ($email->send()) {
+                $ok = 1;
+            }
+    	} catch (\EmailSendingFailedException $e) {
+            \LogLib::warning($e, __METHOD__, $param);
+    	} catch (\EmailValidationFailedException $e) {
+            \LogLib::warning($e, __METHOD__, $param);
+    	}
+        return (boolean) $ok;
+    }
+    
+    /**
+     * Send order email
+     *
+     * @author AnhMH
+     * @param array $param Information for sending email
+     * @return bool Return true if successful ortherwise return false
+     */
+    public static function sendOrderEmail($param) {
+        if (self::beforeSend() == false) {
+            return true;
+        }
+        $subject = 'Đơn hàng từ - '.$param['name'].' - '.$param['phone'];
+        $view = 'email/order';
+        $company = \Model_Company::find('first');
+    	$to = !empty($company['email']) ? $company['email'] : '';
+        
+        if (empty($to)) {
+            return false;
+        }
+        
+    	$email = \Email::forge('jis');
+    	$email->from(Config::get('system_email.noreply'), self::$sender);
+    	$email->subject($subject);
     	$body = \View::forge($view, $param);
     	$email->html_body($body);
     	$email->to(self::to($to));

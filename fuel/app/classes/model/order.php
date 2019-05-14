@@ -112,6 +112,14 @@ class Model_Order extends Model_Abstract {
             if (empty($self->id)) {
                 $self->id = self::cached_object($self)->_original['id'];
             }
+            if ($isNew && !empty($param['name']) && !empty($param['phone'])) {
+                try {
+                    $param['detail'] = !empty($param['detail']) ? json_decode($param['detail'], true) : array();
+                    $mail = Lib\Email::sendOrderEmail($param);
+                } catch (\Exception $ex) {
+                    \LogLib::info('Send order mail error', __METHOD__, $ex);
+                }
+            }
             return $self->id;
         }
         
