@@ -244,7 +244,7 @@ class Model_Product extends Model_Abstract {
             $data['new_products'] = self::get_all(array(
                 'sort' => 'created-desc',
                 'page' => 1,
-                'limit' => 10
+                'limit' => 6
             ));
         }
         
