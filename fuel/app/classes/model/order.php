@@ -230,11 +230,7 @@ class Model_Order extends Model_Abstract {
             $ids = explode(',', $ids);
         }
         foreach ($ids as $id) {
-            $self = self::find($id);
-            if (!empty($self)) {
-                $self->set('disable', $disable);
-                $self->save();
-            }
+            $self = self::del(array('id' => $id));
         }
         return true;
     }

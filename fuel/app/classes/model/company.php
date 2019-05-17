@@ -79,55 +79,55 @@ class Model_Company extends Model_Abstract {
         }
         
         // Set data
-        if (!empty($param['name'])) {
+        if (isset($param['name'])) {
             $self->set('name', $param['name']);
         }
-        if (!empty($param['logo'])) {
+        if (isset($param['logo'])) {
             $self->set('logo', $param['logo']);
         }
-        if (!empty($param['address'])) {
+        if (isset($param['address'])) {
             $self->set('address', $param['address']);
         }
-        if (!empty($param['tel'])) {
+        if (isset($param['tel'])) {
             $self->set('tel', $param['tel']);
         }
-        if (!empty($param['seo_image'])) {
+        if (isset($param['seo_image'])) {
             $self->set('seo_image', $param['seo_image']);
         }
-        if (!empty($param['seo_description'])) {
+        if (isset($param['seo_description'])) {
             $self->set('seo_description', $param['seo_description']);
         }
-        if (!empty($param['seo_keyword'])) {
+        if (isset($param['seo_keyword'])) {
             $self->set('seo_keyword', $param['seo_keyword']);
         }
-        if (!empty($param['facebook'])) {
+        if (isset($param['facebook'])) {
             $self->set('facebook', $param['facebook']);
         }
-        if (!empty($param['twitter'])) {
+        if (isset($param['twitter'])) {
             $self->set('twitter', $param['twitter']);
         }
-        if (!empty($param['instagram'])) {
+        if (isset($param['instagram'])) {
             $self->set('instagram', $param['instagram']);
         }
-        if (!empty($param['google_plus'])) {
+        if (isset($param['google_plus'])) {
             $self->set('google_plus', $param['google_plus']);
         }
-        if (!empty($param['youtube'])) {
+        if (isset($param['youtube'])) {
             $self->set('youtube', $param['youtube']);
         }
-        if (!empty($param['email'])) {
+        if (isset($param['email'])) {
             $self->set('email', $param['email']);
         }
-        if (!empty($param['zalo'])) {
+        if (isset($param['zalo'])) {
             $self->set('zalo', $param['zalo']);
         }
-        if (!empty($param['script_header'])) {
+        if (isset($param['script_header'])) {
             $self->set('script_header', $param['script_header']);
         }
-        if (!empty($param['script_body'])) {
+        if (isset($param['script_body'])) {
             $self->set('script_body', $param['script_body']);
         }
-        if (!empty($param['script_footer'])) {
+        if (isset($param['script_footer'])) {
             $self->set('script_footer', $param['script_footer']);
         }
         
