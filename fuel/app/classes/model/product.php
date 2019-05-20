@@ -272,6 +272,25 @@ class Model_Product extends Model_Abstract {
     }
     
     /**
+     * Delete
+     *
+     * @author AnhMH
+     * @param array $param Input data
+     * @return Int|bool
+     */
+    public static function del($param)
+    {
+        $delete = self::deleteRow(self::$_table_name, array(
+            'id' => $param['id']
+        ));
+        if ($delete) {
+            return $param['id'];
+        } else {
+            return 0;
+        }
+    }
+    
+    /**
      * Get all
      *
      * @author AnhMH

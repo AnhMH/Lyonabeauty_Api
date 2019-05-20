@@ -261,4 +261,23 @@ class Model_Banner extends Model_Abstract {
         
         return $data;
     }
+    
+    /**
+     * Delete
+     *
+     * @author AnhMH
+     * @param array $param Input data
+     * @return Int|bool
+     */
+    public static function del($param)
+    {
+        $delete = self::deleteRow(self::$_table_name, array(
+            'id' => $param['id']
+        ));
+        if ($delete) {
+            return $param['id'];
+        } else {
+            return 0;
+        }
+    }
 }

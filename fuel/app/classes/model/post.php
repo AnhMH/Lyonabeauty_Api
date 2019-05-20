@@ -185,7 +185,8 @@ class Model_Post extends Model_Abstract {
         
         if (!empty($param['get_new_posts'])) {
             $newPosts = self::get_all(array(
-                'limit' => 4
+                'limit' => 4,
+                'page' => 1
             ));
         }
         
@@ -231,11 +232,31 @@ class Model_Post extends Model_Abstract {
         
         if (!empty($param['get_new_posts'])) {
             $data['new_posts'] = self::get_all(array(
-                'limit' => 4
+                'limit' => 4,
+                'page' => 1
             ));
         }
         
         return $data;
+    }
+    
+    /**
+     * Delete
+     *
+     * @author AnhMH
+     * @param array $param Input data
+     * @return Int|bool
+     */
+    public static function del($param)
+    {
+        $delete = self::deleteRow(self::$_table_name, array(
+            'id' => $param['id']
+        ));
+        if ($delete) {
+            return $param['id'];
+        } else {
+            return 0;
+        }
     }
     
     /**
